@@ -21,12 +21,17 @@ public class Empleado {
     @Column(name = "apellido2", length = 100)
     private String apellido2;
 
-    public Empleado(Long id, String nif, String nombre, String apellido1, String apellido2) {
+    @ManyToOne
+    @JoinColumn(name = "codigo_departamento")
+    private Departamento departamento; 
+
+    public Empleado(Long id, String nif, String nombre, String apellido1, String apellido2, Departamento departamento) {
         this.id = id;
         this.nif = nif;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
+        this.departamento = departamento;
     }
 
     public Empleado() {
@@ -70,6 +75,14 @@ public class Empleado {
 
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
+    }
+
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
     

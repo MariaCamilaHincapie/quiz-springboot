@@ -1,7 +1,12 @@
 package com.eamapp.crud.crudspringboot.controller;
 
+import com.eamapp.crud.crudspringboot.entity.Departamento;
 import com.eamapp.crud.crudspringboot.entity.Empleado;
+import com.eamapp.crud.crudspringboot.service.DepartamentoServicio;
 import com.eamapp.crud.crudspringboot.service.EmpleadoServicio;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +20,10 @@ public class EmpleadoControlador {
     @Autowired
     private EmpleadoServicio servicio;
 
-    @GetMapping({ "/empleados", "/" })
+    @Autowired
+    private DepartamentoServicio servicio2;
+
+    @GetMapping({ "/empleados"})
     public String listarEmpleados(Model modelo) {
         modelo.addAttribute("empleados", servicio.listarTodosLosEmpleados());
         return "empleados"; // nos retorna al archivo empleados
@@ -25,6 +33,7 @@ public class EmpleadoControlador {
     public String mostrarFormularioDeRegistrarEmpleado(Model modelo) {
         Empleado empleado = new Empleado();
         modelo.addAttribute("empleado", empleado);
+        modelo.addAttribute("listaDepartamentos", servicio2.listarTodosLosDepartamentos());
         return "crear_empleado";
     }
 
@@ -49,6 +58,7 @@ public class EmpleadoControlador {
         empleadoExistente.setNombre(empleado.getNombre());
         empleadoExistente.setApellido1(empleado.getApellido1());
         empleadoExistente.setApellido2(empleado.getApellido2());
+        empleadoExistente.setDepartamento(empleado.getDepartamento());
 
         servicio.actualizarEmpleado(empleadoExistente);
         return "redirect:/empleados";

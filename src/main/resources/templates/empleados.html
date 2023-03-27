@@ -34,6 +34,7 @@
         <th>NIF</th>
         <th>Nombre</th>
         <th>Apellido/s</th>
+        <th>Departamento</th>
         <th>Acciones</th>
       </tr>
       </thead>
@@ -42,6 +43,7 @@
         <td th:text="${empleado.nif}">NIF</td>
         <td th:text="${empleado.nombre}">Nombre</td>
         <td th:text="${empleado.apellido1 + empleado.apellido2}">Apellido/s</td>
+        <td th:text="${empleado.departamento.nombre}">Departamento</td>
         <td>
           <a th:href="@{/empleados/editar/{id}(id=${empleado.id})}" class="btn btn-info">Editar</a>
           <a th:href="@{/empleados/{id}(id=${empleado.id})}" class="btn btn-danger">Eliminar</a>
